@@ -1,30 +1,114 @@
-# React + TypeScript + Vite
+# React Date Range Picker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A customizable, easy-to-use date range picker component for React applications.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Select start and end dates in a single calendar view
+- Displays two months at a time for easier date range selection
+- Highlights the selected date range
+- Customizable styles using SCSS
+- Built with React and TypeScript for type safety
+- Lightweight and performant
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+You can install the package using npm:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+npm install react-date-range-picker
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Or using yarn:
+
+```bash
+yarn add react-date-range-picker
+```
+
+## Usage
+
+Here's a basic example of how to use the Date Range Picker in your React application:
+
+```jsx
+import React from 'react';
+import { DateRangePicker } from 'react-date-range-picker';
+import 'react-date-range-picker/dist/style.css';
+
+function App() {
+  return (
+    <div>
+      <h1>Select a Date Range</h1>
+      <DateRangePicker />
+    </div>
+  );
+}
+
+export default App;
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `onChange` | `(range: { startDate: Date, endDate: Date }) => void` | - | Callback function that is called when the selected date range changes |
+| `initialStartDate` | `Date` | `null` | Initial start date |
+| `initialEndDate` | `Date` | `null` | Initial end date |
+
+## Styling
+
+The component comes with default styles, but you can customize it by overriding the CSS classes. The main classes you can target are:
+
+- `.date-range-picker-container`: The outer container
+- `.date-range-input`: The input field
+- `.date-range-picker`: The picker modal
+- `.month`: Each month container
+- `.day`: Individual day cells
+
+## Development
+
+To set up the development environment:
+
+1. Clone the repository
+2. Install dependencies with `npm install`
+3. Start the development server with `npm run dev`
+
+## Building
+
+To build the component for production:
+
+```bash
+npm run build
+```
+
+This will generate the distribution files in the `dist` folder.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
+
+This README provides:
+
+1. A brief description of the component
+2. Key features
+3. Installation instructions
+4. Basic usage example
+5. Available props (you should update this based on the actual props your component accepts)
+6. Information on styling
+7. Development and build instructions
+8. How to contribute
+9. License information
+
+Remember to keep your README up-to-date as you develop your component. You may want to add sections like:
+
+- A screenshot or gif demonstrating the component in action
+- More detailed API documentation
+- Troubleshooting or FAQ section
+- Information about browser compatibility
+- Any known issues or limitations
+
+Also, make sure to create and link to a LICENSE file if you mention it in the README.
