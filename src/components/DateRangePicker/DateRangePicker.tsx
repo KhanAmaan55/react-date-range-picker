@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
-import './DateRangePicker.scss';
+import React, { useState, useRef, useEffect } from "react";
+import "./DateRangePicker.scss";
 
 interface DateRange {
   startDate: Date | null;
@@ -7,21 +7,27 @@ interface DateRange {
 }
 
 const DateRangePicker: React.FC = () => {
-  const [dateRange, setDateRange] = useState<DateRange>({ startDate: null, endDate: null });
+  const [dateRange, setDateRange] = useState<DateRange>({
+    startDate: null,
+    endDate: null,
+  });
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false);
   const pickerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (pickerRef.current && !pickerRef.current.contains(event.target as Node)) {
+      if (
+        pickerRef.current &&
+        !pickerRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -50,7 +56,11 @@ const DateRangePicker: React.FC = () => {
   };
 
   const handleDateClick = (day: number, monthOffset: number) => {
-    const clickedDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + monthOffset, day);
+    const clickedDate = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth() + monthOffset,
+      day
+    );
 
     if (!dateRange.startDate || (dateRange.startDate && dateRange.endDate)) {
       setDateRange({ startDate: clickedDate, endDate: null });
@@ -65,12 +75,22 @@ const DateRangePicker: React.FC = () => {
 
   const isDateInRange = (day: number, monthOffset: number) => {
     if (!dateRange.startDate || !dateRange.endDate) return false;
-    const currentDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + monthOffset, day);
-    return currentDate >= dateRange.startDate && currentDate <= dateRange.endDate;
+    const currentDate = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth() + monthOffset,
+      day
+    );
+    return (
+      currentDate >= dateRange.startDate && currentDate <= dateRange.endDate
+    );
   };
 
   const isDateSelected = (day: number, monthOffset: number) => {
-    const currentDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + monthOffset, day);
+    const currentDate = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth() + monthOffset,
+      day
+    );
     return (
       currentDate.getTime() === dateRange.startDate?.getTime() ||
       currentDate.getTime() === dateRange.endDate?.getTime()
@@ -78,23 +98,34 @@ const DateRangePicker: React.FC = () => {
   };
 
   const renderMonth = (monthOffset: number) => {
-    const monthDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + monthOffset, 1);
+    const monthDate = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth() + monthOffset,
+      1
+    );
     const monthData = getMonthData(monthDate);
 
     return (
       <div className="month">
-        <h3>{monthDate.toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
+        <h3>
+          {monthDate.toLocaleString("default", {
+            month: "long",
+            year: "numeric",
+          })}
+        </h3>
         <div className="calendar">
-          {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((day) => (
-            <div key={day} className="day-header">{day}</div>
+          {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
+            <div key={day} className="day-header">
+              {day}
+            </div>
           ))}
           {monthData.map((day, index) => (
             <div
               key={index}
-              className={`day ${day === null ? 'empty' : ''} ${
-                isDateInRange(day as number, monthOffset) ? 'in-range' : ''
+              className={`day ${day === null ? "empty" : ""} ${
+                isDateInRange(day as number, monthOffset) ? "in-range" : ""
               } ${
-                isDateSelected(day as number, monthOffset) ? 'selected' : ''
+                isDateSelected(day as number, monthOffset) ? "selected" : ""
               }`}
               onClick={() => day !== null && handleDateClick(day, monthOffset)}
             >
@@ -107,11 +138,15 @@ const DateRangePicker: React.FC = () => {
   };
 
   const handlePrevMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
+    );
   };
 
   const handleNextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
+    );
   };
 
   const formatDateRange = () => {
@@ -120,7 +155,7 @@ const DateRangePicker: React.FC = () => {
     } else if (dateRange.startDate) {
       return dateRange.startDate.toLocaleDateString();
     }
-    return '';
+    return "";
   };
 
   return (
